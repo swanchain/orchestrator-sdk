@@ -21,7 +21,9 @@ class SwanContract():
         self.payment_contract_addr = contract_info["payment_contract_address"]
         self.client_contract_addr = contract_info["client_contract_address"]
 
-        self.account = Account.from_key(private_key)
+        self.account = None
+        if private_key != "":
+            self.account = Account.from_key(private_key)
         self.w3 = Web3(Web3.HTTPProvider(self.rpc_url))
         self.w3.middleware_onion.inject(geth_poa_middleware, layer=0)
 
@@ -87,7 +89,7 @@ class SwanContract():
         Returns:
             tx_hash
         """
-
+        
         # first approve payment
         amount = int(self.estimate_payment(
             hardware_id=hardware_id, 
@@ -217,8 +219,9 @@ class SwanContract():
         Return:
             float converted value with correct decimal (default swan, 18 decimal).
         """
-        if value == 0: return 0
-        return value ** -(decimal)
+        if value == 0: 
+            return 0
+        return self.w3.from_wei(value, 'ether')
     
     def _get_swan_gas(self):
         """Get current gas on Swan chain

@@ -3,7 +3,7 @@
 import requests
 from unittest.mock import Mock, MagicMock, patch
 
-from swan.api.swan_api import SwanAPI
+from swan.api.swan_api import Orchestrator
 
 
 class TestSwanAPI:
@@ -11,7 +11,7 @@ class TestSwanAPI:
         orchestrator_url = "https://orchestrator.swanchain.io/"
         api_key = Mock()
         payment_key = Mock()
-        self.swan_api = SwanAPI(orchestrator_url, api_key, payment_key)
+        self.swan_api = Orchestrator(orchestrator_url, api_key, payment_key)
 
     def test_query_price_list_successful(self):
         mock_response = {

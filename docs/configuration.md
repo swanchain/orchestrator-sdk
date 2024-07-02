@@ -34,4 +34,6 @@ load_dotenv()
 
 import os
 api_key = os.getenv('API_KEY')
+wallet_address = os.getenv('WALLET_ADR')
+private_key = os.getenv('PRIVATE_KEY')
 ```
